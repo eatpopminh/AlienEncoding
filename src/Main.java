@@ -9,6 +9,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		
+		//idk
 		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
 		
 		for(int i = 0 ; i<lines.size() ; i++)
