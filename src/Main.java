@@ -22,23 +22,56 @@ public class Main {
 		
 		//Use Tree NOT binary tree to get more than two leaf on one root.
 		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
-		int freq = Integer.parseInt(lines.get(0));
-		
-		TreeMap data = new TreeMap<Integer, String>();
-		
-		for(int i = 1 ; i<lines.size() ; i++)
+		int firstNum = Integer.parseInt(lines.get(0));
+		 
+		ArrayList<letter_freq> data = new ArrayList<letter_freq>();
+		for(int i  = 1; i<lines.size();i++)
 		{
-			System.out.println(lines.get(i).split(" ")[0] + " " + Integer.parseInt(lines.get(i).split(" ")[1]));
-			
-			data.put(Integer.parseInt(lines.get(i).split(" ")[1]), lines.get(i).split(" ")[0]);
+			letter_freq lf = new letter_freq(lines.get(i).split(" ")[0], Integer.parseInt(lines.get(i).split(" ")[1]));
+			data.add(lf);
 		}
 		
+//		for(int i  = 0; i<lines.size()-1;i++)
+//		{
+//			System.out.println(data.get(i).letter);
+//		}
 		
-		
-
-		
-	
+		quickSort(data,0,456975);		
+		for(int i  = 0; i<lines.size()-1;i++)
+		{
+			System.out.println(data.get(i).letter+ " "+data.get(i).freq);
+		}
 		
 	}
+	  public static int partition(ArrayList<letter_freq> arr, int l, int h) 
+	    { 
+	        int pivot = arr.get(h).freq;  
+	        int i = (l-1); 
+	        for (int j=l; j<h; j++) 
+	        { 
+	            if (arr.get(j).freq < pivot) 
+	            { 
+	                i++; 
+	                letter_freq temp = arr.get(i);
+	                arr.set(i,arr.get(j));
+	                arr.set(j, temp); 
+	            } 
+	        } 
+	        letter_freq temp = arr.get(i+1); 
+	        arr.set(i+1, arr.get(h));
+	        arr.set(h, temp);
+	  
+	        return i+1; 
+	    } 
+	public static void quickSort(ArrayList<letter_freq> arr, int l, int h) 
+    { 
+        if (l < h) 
+        { 
+            int temp = partition(arr, l, h); 
+  
+            quickSort(arr, l, temp-1); 
+            quickSort(arr, temp+1, h); 
+        } 
+    } 
 
 }
