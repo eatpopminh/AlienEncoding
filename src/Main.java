@@ -36,6 +36,7 @@ public class Main {
 //			System.out.println(data.get(i).letter);
 //		}
 		
+		//sort everything by freq.
 		quickSort(data,0,456975);		
 		for(int i  = 0; i<lines.size()-1;i++)
 		{
