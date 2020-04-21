@@ -6,8 +6,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
@@ -30,7 +32,7 @@ public class Main {
 		ArrayList<Integer> freq = new ArrayList<Integer>();
 		for(int i  = 1; i<lines.size();i++)
 		{
-			letter_freq lf = new letter_freq(lines.get(i).split(" ")[0], Integer.parseInt(lines.get(i).split(" ")[1]));
+			letter_freq lf = new letter_freq(lines.get(i).split(" ")[0], Integer.parseInt(lines.get(i).split(" ")[1]), firstNum);
 			data.add(lf);
 			letter.add(lines.get(i).split(" ")[0]);
 			freq.add(Integer.parseInt(lines.get(i).split(" ")[1]));
@@ -44,10 +46,52 @@ public class Main {
 			//System.out.println(data.get(i).letter+ " "+data.get(i).freq);
 		}
 		
-		PriorityQueue<letter_freq> pq = new PriorityQueue<letter_freq>(); 
-		for(int i  = lines.size()-2; i>0;i--)
+		Queue<letter_freq> pq1 = new LinkedList<letter_freq>(); 
+		Queue<letter_freq> pq2 = new LinkedList<letter_freq>();
+		ArrayList<letter_freq> pq_list = new ArrayList<letter_freq>();
+		//adding everything to queue.
+		for(int i  = 0; i<lines.size()-1;i++)
 		{
-			pq.add(data.get(i));
+			pq1.add(data.get(i));
+		}
+		//testing if data is in pq1.
+//		for(int i  = 0; i<lines.size()-1;i++)
+//		{
+//			letter_freq temp = pq1.poll();
+//			//System.out.println(temp.letter + " " + temp.freq);			
+//		}
+		//check if pq2 is empty.
+		if(pq2.isEmpty())
+		{
+			pq_is_empty(pq1,pq_list,firstNum);
+			pq2.add(combine_lowest(pq_list,firstNum));
+		}
+		letter_freq temp = pq2.poll();
+		System.out.println(temp.letter + " "+ temp.freq);
+		
+		
+		
+		
+		
+		
+		}
+	public static letter_freq combine_lowest(ArrayList<letter_freq> pq_list, int firstNum)
+	{
+		letter_freq temp = new letter_freq();
+		temp.transfer_array(pq_list);
+		temp.print_array();
+		
+		return temp;
+		
+	}
+	public static void pq_is_empty(Queue<letter_freq> pq1, ArrayList<letter_freq> pq_list, int firstNum)
+	{
+		for(int i = 0;i<firstNum;i++)
+		{
+			letter_freq temp = pq1.poll();
+			System.out.println(temp.letter + " " + temp.freq);
+			pq_list.add(temp);
+			
 		}
 	}
 	  public static int partition(ArrayList<letter_freq> arr, int l, int h) 
