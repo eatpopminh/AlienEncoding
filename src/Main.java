@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
@@ -25,25 +26,29 @@ public class Main {
 		int firstNum = Integer.parseInt(lines.get(0));
 		 
 		ArrayList<letter_freq> data = new ArrayList<letter_freq>();
+		ArrayList<String> letter = new ArrayList<String>();
+		ArrayList<Integer> freq = new ArrayList<Integer>();
 		for(int i  = 1; i<lines.size();i++)
 		{
 			letter_freq lf = new letter_freq(lines.get(i).split(" ")[0], Integer.parseInt(lines.get(i).split(" ")[1]));
 			data.add(lf);
+			letter.add(lines.get(i).split(" ")[0]);
+			freq.add(Integer.parseInt(lines.get(i).split(" ")[1]));
 		}
 		
-//		for(int i  = 0; i<lines.size()-1;i++)
-//		{
-//			System.out.println(data.get(i).letter);
-//		}
 		
 		//sort everything by freq.
 		quickSort(data,0,456975);		
 		for(int i  = 0; i<lines.size()-1;i++)
 		{
-			System.out.println(data.get(i).letter+ " "+data.get(i).freq);
+			//System.out.println(data.get(i).letter+ " "+data.get(i).freq);
 		}
-		//
 		
+		PriorityQueue<letter_freq> pq = new PriorityQueue<letter_freq>(); 
+		for(int i  = lines.size()-2; i>0;i--)
+		{
+			pq.add(data.get(i));
+		}
 	}
 	  public static int partition(ArrayList<letter_freq> arr, int l, int h) 
 	    { 
