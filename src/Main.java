@@ -1,4 +1,5 @@
 //Due April 23
+//isnt finished
 import java.util.List;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,7 +26,7 @@ public class Main {
 		
 		//Use Tree NOT binary tree to get more than two leaf on one root.
 		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
-		int firstNum = 2;//Integer.parseInt(lines.get(0));
+		int firstNum = 13;//Integer.parseInt(lines.get(0));
 		 
 		ArrayList<letter_freq> data = new ArrayList<letter_freq>();
 		ArrayList<String> letter = new ArrayList<String>();
@@ -41,7 +42,7 @@ public class Main {
 		
 		//sort everything by freq.
 		//456975
-		quickSort(data,0,4);	
+		quickSort(data,0,18);	
 		int total = 0;
 		for(int i  = 0; i<lines.size()-1;i++)
 		{
@@ -89,27 +90,25 @@ public class Main {
 //		System.out.println(temp.data.get(1).data.size());
 //		System.out.println(temp.data.get(1).data.get(0).data.size());
 		traveral(temp);
+//		
+		
 		System.out.println("DONE");
 		
 		}
 	public static void traveral(letter_freq lf)
 	{
 		int size = lf.data.size();
-		
-		for(int i = 0;i<size;i++)
+		int i = 0;
+		for(i = 0;i<size;i++)
+		{//System.out.println(lf.data.get(i).letter + " " + lf.data.get(i).freq + " " + lf.data.indexOf(lf.data.get(i)));
 			traveral(lf.data.get(i));
-		System.out.println(lf.freq+ "/"+lf.letter);
-		//traveral(lf.data.get(size-1));
+		}
+		
+		//System.out.println(lf.freq+ "/"+lf.letter + " ");
+		
 		
 	}
-	public static void traveral2(letter_freq lq)
-	{
-		for(int i =0;i<1000;i++)
-		{
-			letter_freq temp = lq;
-			
-		}
-	}
+	
 	public static void add_min_to_array(Queue<letter_freq> pq1, Queue<letter_freq> pq2, ArrayList<letter_freq> pq_list, int firstNum)
 	{
 		
