@@ -19,13 +19,13 @@ import java.util.Vector;
 
 
 public class Main {
-
+	public static int a = 0;
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		
 		//Use Tree NOT binary tree to get more than two leaf on one root.
 		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
-		int firstNum = Integer.parseInt(lines.get(0));
+		int firstNum = 2;//Integer.parseInt(lines.get(0));
 		 
 		ArrayList<letter_freq> data = new ArrayList<letter_freq>();
 		ArrayList<String> letter = new ArrayList<String>();
@@ -40,10 +40,13 @@ public class Main {
 		
 		
 		//sort everything by freq.
-		quickSort(data,0,456975);		
+		//456975
+		quickSort(data,0,4);	
+		int total = 0;
 		for(int i  = 0; i<lines.size()-1;i++)
 		{
-			//System.out.println(data.get(i).letter+ " "+data.get(i).freq);
+			System.out.println(data.get(i).letter+ " "+data.get(i).freq);
+			total+=data.get(i).freq;
 		}
 		
 		Queue<letter_freq> pq1 = new LinkedList<letter_freq>(); 
@@ -60,40 +63,92 @@ public class Main {
 //			letter_freq temp = pq1.poll();
 //			//System.out.println(temp.letter + " " + temp.freq);			
 //		}
-		//check if pq2 is empty.
-		if(pq2.isEmpty())
+		
+		int aaa = 0;
+		while(!(pq1.isEmpty() && pq2.size()==1))
+		//for(int i =0;i<38080;i++)
 		{
-			pq_is_empty(pq1,pq_list,firstNum);
-			pq2.add(combine_lowest(pq_list,firstNum));
+			//check if pq2 is empty.
+			add_min_to_array(pq1, pq2, pq_list, firstNum);
+//			System.out.println(aaa);
+//		aaa++;
+			
 		}
+//		System.out.println(pq2.poll().letter);
+		System.out.println(pq2.peek().freq);
+		System.out.println("Hello the total is: " + total);
+//			System.out.println(pq2.peek().letter);
+//			System.out.println(pq2.peek().freq);
+			
+		
 		letter_freq temp = pq2.poll();
-		System.out.println(temp.letter + " "+ temp.freq);
-		
-		
-		
-		
-		
+//		System.out.println(temp.data.get(0).freq + " " + temp.data.get(1).freq);
+//		System.out.println(temp.data.get(1).data.get(1).freq);
+//		System.out.println("------------------------------");
+//		System.out.println(temp.data.size());
+//		System.out.println(temp.data.get(1).data.size());
+//		System.out.println(temp.data.get(1).data.get(0).data.size());
+		traveral(temp);
+		System.out.println("DONE");
 		
 		}
-	public static letter_freq combine_lowest(ArrayList<letter_freq> pq_list, int firstNum)
+	public static void traveral(letter_freq lf)
 	{
-		letter_freq temp = new letter_freq();
-		temp.transfer_array(pq_list);
-		temp.print_array();
+		int size = lf.data.size();
 		
-		return temp;
+		for(int i = 0;i<size;i++)
+			traveral(lf.data.get(i));
+		System.out.println(lf.freq+ "/"+lf.letter);
+		//traveral(lf.data.get(size-1));
 		
 	}
-	public static void pq_is_empty(Queue<letter_freq> pq1, ArrayList<letter_freq> pq_list, int firstNum)
+	public static void traveral2(letter_freq lq)
 	{
-		for(int i = 0;i<firstNum;i++)
+		for(int i =0;i<1000;i++)
 		{
-			letter_freq temp = pq1.poll();
-			System.out.println(temp.letter + " " + temp.freq);
-			pq_list.add(temp);
+			letter_freq temp = lq;
 			
 		}
 	}
+	public static void add_min_to_array(Queue<letter_freq> pq1, Queue<letter_freq> pq2, ArrayList<letter_freq> pq_list, int firstNum)
+	{
+		
+			//for(int i = 0 ;i<firstNum;i++)
+			while(!(pq_list.size()==firstNum))
+			{
+				if(pq2.isEmpty())
+				{
+					pq_list.add(pq1.poll());
+				}
+				if(pq1.isEmpty())
+				{
+					pq_list.add(pq2.poll());
+				}
+				if(!pq2.isEmpty() && !pq1.isEmpty())				
+				{
+					if(pq1.peek().freq <= pq2.peek().freq)
+					{
+						pq_list.add(pq1.poll());
+					}
+					else
+					{
+						pq_list.add(pq2.poll());
+					}
+				}
+			}	
+
+			pq2.add(combine_lowest(pq_list));
+			pq_list.clear();
+			
+	}
+
+	public static letter_freq combine_lowest(ArrayList<letter_freq> pq_list)
+	{
+		letter_freq temp = new letter_freq();
+		temp.transfer_array(pq_list);
+		return temp;
+	}
+	
 	  public static int partition(ArrayList<letter_freq> arr, int l, int h) 
 	    { 
 	        int pivot = arr.get(h).freq;  

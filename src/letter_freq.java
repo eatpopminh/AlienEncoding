@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Queue;
 
 public class letter_freq {
 	
@@ -12,18 +13,23 @@ public class letter_freq {
 		letter = "";
 		freq = 0;
 	}
+	public letter_freq(String l)
+	{
+		letter = l;
+		freq = 0;
+	}
 	public letter_freq(String a, int b, int c)
 	{
 		letter = a;
 		freq = b;
 		num = c;
 	}
-	public void adding_freq_array()
+	public void adding_freq_letter_array()
 	{
 		for(int i = 0 ;i<data.size();i++)
 		{
 			freq+=data.get(i).freq;
-			letter+=data.get(i).letter;
+			//letter+=data.get(i).letter;
 		}
 	}
 	public void transfer_array(ArrayList<letter_freq> pq_list)
@@ -32,7 +38,7 @@ public class letter_freq {
 		{
 			data.add(pq_list.get(i));
 		}
-		adding_freq_array();
+		adding_freq_letter_array();
 					
 	}
 	
@@ -43,6 +49,7 @@ public class letter_freq {
 		for(int i = 0 ; i < data.size();i++)
 		{
 			System.out.println(data.get(i).letter + " " + data.get(i).freq);
+		
 		}
 		
 	}
