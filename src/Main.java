@@ -18,7 +18,6 @@ import java.util.Vector;
 
 
 
-
 public class Main {
 	public static int a = 0;
 	public static void main(String[] args) throws IOException {
@@ -26,7 +25,7 @@ public class Main {
 		
 		//Use Tree NOT binary tree to get more than two leaf on one root.
 		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
-		int firstNum = 13;//Integer.parseInt(lines.get(0));
+		int firstNum = Integer.parseInt(lines.get(0));
 		 
 		ArrayList<letter_freq> data = new ArrayList<letter_freq>();
 		ArrayList<String> letter = new ArrayList<String>();
@@ -42,7 +41,7 @@ public class Main {
 		
 		//sort everything by freq.
 		//456975
-		quickSort(data,0,18);	
+		quickSort(data,0,27);	
 		int total = 0;
 		for(int i  = 0; i<lines.size()-1;i++)
 		{
@@ -89,8 +88,7 @@ public class Main {
 //		System.out.println(temp.data.size());
 //		System.out.println(temp.data.get(1).data.size());
 //		System.out.println(temp.data.get(1).data.get(0).data.size());
-		traveral(temp);
-//		
+		traveral(temp);		
 		
 		System.out.println("DONE");
 		
@@ -100,7 +98,9 @@ public class Main {
 		int size = lf.data.size();
 		int i = 0;
 		for(i = 0;i<size;i++)
-		{//System.out.println(lf.data.get(i).letter + " " + lf.data.get(i).freq + " " + lf.data.indexOf(lf.data.get(i)));
+		{
+			System.out.println("Letter " + lf.data.get(i).letter + " Freq: " + lf.data.get(i).freq + 
+					" index " + lf.data.indexOf(lf.data.get(i)));
 			traveral(lf.data.get(i));
 		}
 		
